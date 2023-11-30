@@ -3,6 +3,7 @@
 
 using namespace std;
 
+//矩阵类实现简单dense的SpMV和Spm-Spm算子
 class Matrix {
 public:
     int rows; // 行数
@@ -75,6 +76,8 @@ public:
         return result;
     }
 };
+
+//CSCMatrix 和SMatrix 类实现sparse的SPMV和SPM-SPM算子
 class CSCMatrix {
 public:
     int rows; // 行数
