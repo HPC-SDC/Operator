@@ -1,9 +1,8 @@
-﻿#include <iostream>
+#include <iostream>
 #include <vector>
 
 using namespace std;
 
-//矩阵类实现简单dense的SpMV和Spm-Spm算子
 class Matrix {
 public:
     int rows; // 行数
@@ -76,8 +75,6 @@ public:
         return result;
     }
 };
-
-//CSCMatrix 和SMatrix 类实现sparse的SPMV和SPM-SPM算子
 class CSCMatrix {
 public:
     int rows; // 行数
@@ -245,29 +242,36 @@ public:
 
         int nnz = 0; // 非零元素个数
 
-        for (int i = 0; i < rows; ++i) {
-            std::vector<double> temp(other.cols, 0.0); // 临时存储每一行与B相乘的结果
-
-            for (int pA = rowPtr[i]; pA < rowPtr[i + 1]; ++pA) {
-                int colA = colIndices[pA];
-                double valueA = data[pA];
-
-                for (int pB = other.colPtr[colA]; pB < other.colPtr[colA + 1]; ++pB) {
-                    int rowB = other.rowIndices[pB];
-                    double valueB = other.data[pB];
-                    temp[rowB] += valueA * valueB; // 累加乘积结果
-      
-                }
-            }
-
+        for (int i = 0; i < rows; ++i) {//好像没办法写出for each，因为resultData每一次添加是添加到最尾部
+            //如果for each乱序执行的话result data顺序就会乱
+            //但是如果引入一个类似ROB的东西，最后再把Temp的统一压到resultData数组里面，是可以写出两个for each的
             for (int j = 0; j < other.cols; ++j) {
-                if (temp[j] != 0.0) {
-                    resultData.push_back(temp[j]); // 存储乘积结果中的非零元素值
-                    resultColIndices.push_back(j); // 存储乘积结果中的列索引
-                    nnz++; // 非零元素数量加一
+                double temp = 0;
+                int pA = rowPtr[i];
+                int pB = other.colPtr[j];
+
+                while (pA < rowPtr[i + 1] && pB < other.colPtr[j + 1]) {
+                    if (colIndices[pA] < other.rowIndices[pB]) {
+                        pA++;
+                    }
+                    else if (colIndices[pA] > other.rowIndices[pB]) {
+                        pB++;
+                    }
+                    else {
+                        temp += data[pA] * other.data[pB];
+                        pA++;
+                        pB++;
+                    }
+                }
+
+                if (temp != 0) {
+                    resultData.push_back(temp);
+                    resultColIndices.push_back(j);
+                    nnz++;
                 }
             }
-            resultRowPtr[i + 1] = nnz; // 更新结果矩阵行指针数组的值
+
+            resultRowPtr[i + 1] = nnz;
         }
 
         return SMatrix(rows, other.cols, resultData, resultColIndices, resultRowPtr);
@@ -279,15 +283,14 @@ public:
 #include <vector>
 
 
-
-
-
-
-
 int main() {
-
+    //--------------------------------------------------------------------
+    //稀疏矩阵的算子
+    //SPMV：CSR形式的矩阵左乘向量b
+    //SPM-SPM:两个CSR形式的矩阵相乘
+    //spm-spm:CSR形式的矩阵乘CSC形式的矩阵
     vector<double> data = { 1.0, 2.0, 3.0, 4.0, 5.0 };
-    vector<int> colIndices = { 0, 2, 1, 0, 2 };
+    vector<int> colIndices = { 0, 2, 1, 1, 2 };
     vector<int> rowPtr = { 0, 2, 3, 5 };
 
     SMatrix SparseM(3, 3, data, colIndices, rowPtr);
@@ -304,9 +307,9 @@ int main() {
     cout << endl;
 
 
-    vector<double> data2 = { 1,4,3,2,5 };
-    vector<int> rowIndices = { 0, 2, 1, 0, 2 };
-    vector<int> colPtr = { 0, 2, 3, 5 };
+    vector<double> data2 = { 1,3,4,2,5 };
+    vector<int> rowIndices = { 0, 1, 2, 0, 2 };
+    vector<int> colPtr = { 0, 1, 3, 5 };
 
     SMatrix SparseM2(3, 3, data, colIndices, rowPtr);
 
