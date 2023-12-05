@@ -27,4 +27,5 @@ SPM-SPM算法我分为了两种情况：两个CSR相乘和一个CSR乘一个CSC�
 
 
 ## Spm-Spm
+![image](https://github.com/HPC-SDC/Operator/assets/150303558/7a42ba2a-8ece-4990-8d95-354ba03e7ce9)
 
