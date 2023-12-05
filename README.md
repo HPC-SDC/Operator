@@ -23,7 +23,8 @@ SPM-SPM算法我分为了两种情况：两个CSR相乘和一个CSR乘一个CSC�
 # 数据流图
 
 ## SpMV
-![image](https://github.com/HPC-SDC/Operator/assets/150303558/e7a66798-f65e-4358-b47a-99abd0fc79ee)
+![image](https://github.com/HPC-SDC/Operator/assets/150303558/244f6ecc-2aac-4243-b2dc-d089c64b1629)
+
 
 
 
