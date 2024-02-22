@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-02-22T14:17:08.505Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0" etag="nAWoamxBqODMKjc7J0TT" version="23.1.5" type="github">
+<mxfile host="app.diagrams.net" modified="2024-02-22T14:17:52.752Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0" etag="52DkRsJaM2EDhIWUrRq-" version="23.1.5" type="github">
   <diagram name="第 1 页" id="WHMRSkOHGIDh6wjL014g">
-    <mxGraphModel dx="1875" dy="1054" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="652" dy="367" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -745,6 +745,9 @@
         </mxCell>
         <mxCell id="SHSjmRiuVBG96-DrGGyx-78" value="&lt;b&gt;result[i,j]&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="1455" y="1698" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="SHSjmRiuVBG96-DrGGyx-83" value="result=result+data[A]*data[B]" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="550" y="2058" width="180" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
